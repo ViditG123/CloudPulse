@@ -1,4 +1,4 @@
-# CloudPulse — Distributed Job Processing (MVP)
+# CloudPulse : Distributed Job Processing (MVP)
 
 FastAPI API, PostgreSQL job store, Redis queue, and an independent Python worker that executes bounded demonstration tasks.
 
