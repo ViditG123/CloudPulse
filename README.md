@@ -38,3 +38,9 @@ python -m pytest -q
 - [ ] AWS deployment and production secrets
 
 The Docker Compose configuration uses development-only credentials. Never submit secrets as job payloads.
+
+## Worker recovery limitations
+
+The worker now claims Redis jobs into an in-flight list, acknowledges them after processing, and requeues unacknowledged jobs on startup. This supports **single-worker restart recovery** in the local demo. PostgreSQL status checks prevent completed jobs from being re-executed after restart. Processing is at-least-once, not exactly-once.
+
+**Do not scale this worker to multiple instances yet:** startup recovery could reclaim a live worker's job. Production use needs per-worker leases, idempotent tasks, delayed retries, durable queue configuration, monitoring and integration tests. AWS deployment has not been implemented or verified.
